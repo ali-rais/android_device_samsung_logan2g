@@ -15,6 +15,8 @@ bin/wlandutservice
 bin/calibration_init
 bin/sprd_monitor
 bin/cpu
+bin/phoneserver
+bin/phoneserver_2sim
 
 # Some Fucking packages
 lib/libmorpho_easy_hdr.so
@@ -36,7 +38,6 @@ lib/libstagefrighthw.so
 lib/libstagefright_soft_h264dec_sprd.so
 lib/libstagefright_soft_mpeg4dec_sprd.so
 lib/libaudiopolicy_sec.so
-
 
 # Adding as kmsg through error :P
 bin/nvm_daemon
@@ -86,6 +87,7 @@ etc/wifi/bcmdhd_p2p.bin
 etc/wifi/bcmdhd_sta.bin
 etc/wifi/nvram_mfg.txt
 etc/wifi/nvram_net.txt
+bin/wpa_supplicant
 etc/wifi/wpa_supplicant.conf
 
 # audio
@@ -189,6 +191,8 @@ lib/libstagefrighthw.so
 lib/libvcdecoder_jni.so
 lib/libwvdrm_L3.so
 lib/libwvm.so
+lib/libreference-ril.so
+lib/libril.so
 lib/libreference-ril.so
 
 # firmware
