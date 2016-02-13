@@ -85,7 +85,6 @@ PRODUCT_COPY_FILES += \
 # These are the hardware-specific files
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
-		frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
@@ -103,8 +102,6 @@ PRODUCT_COPY_FILES += \
 # Filesystem
 PRODUCT_PACKAGES += \
     setup_fs \
-    make_ext4fs \
-    e2fsck 
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -143,10 +140,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
-# KSM
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ksm.default=1
-
 # Google-specific location properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
@@ -164,11 +157,11 @@ PRODUCT_PROPERTY_OVERRIDES += \
     wifi.interface=wlan0 \
     mobiledata.interfaces=rmnet0 \
     ro.zygote.disable_gl_preload=true \
-    persist.radio.multisim.config=dsds \
+    persist.radio.multisim.config=none \
     ro.telephony.call_ring.multiple=0 \
     ro.telephony.call_ring=0 \
     ro.crypto.state=unsupported \
     ro.com.google.gmsversion=4.1_r6 \
 
 # we dont have enough storage space #bitch to hold precise GC data
-#PRODUCT_TAGS += dalvik.gc.type-precise
+PRODUCT_TAGS += dalvik.gc.type-precise

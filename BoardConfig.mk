@@ -4,14 +4,12 @@ TARGET_OTA_ASSERT_DEVICE := logan2g
 # Architecture
 TARGET_ARCH := arm
 TARGET_ARCH_VARIANT := armv7-a
+TARGET_ARCH_VARIANT_CPU := cortex-a5
 TARGET_CPU_ABI := armeabi-v7a
 TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a5
 ARCH_ARM_HAVE_ARMV7A := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
-#ARCH_ARM_HAVE_VFP := true
-#ARCH_ARM_HAVE_NEON := true
-#TARGET_CPU_SMP := true 
 
 # For low memory targets only (~512MB RAM & hdpi resolution)
 TARGET_ARCH_LOWMEM := true
@@ -31,15 +29,14 @@ TARGET_BOARD_PLATFORM_GPU := mali-400 MP
 BOARD_KERNEL_CMDLINE := console=ttyS1,115200n8
 BOARD_KERNEL_BASE := 0x00000000
 BOARD_KERNEL_PAGESIZE := 2048
-#TARGET_PREBUILT_KERNEL := device/samsung/logan2g/kernel
 TARGET_KERNEL_SOURCE := kernel/samsung/logan2g
 TARGET_KERNEL_CONFIG := cyanogenmod-logan2g_defconfig
-TARGET_USES_UNCOMPRESSED_KERNEL := true
+BOARD_USES_UNCOMPRESSED_BOOT := true
 TARGET_KERNEL_CUSTOM_TOOLCHAIN := arm-eabi-4.6
 
 # Partitions
 BOARD_BOOTIMAGE_PARTITION_SIZE := 10485760
-#BOARD_RECOVERYIMAGE_PARTITION_SIZE := 10485760
+BOARD_RECOVERYIMAGE_PARTITION_SIZE := 10485760
 BOARD_CACHEIMAGE_PARTITION_SIZE := 209715200
 BOARD_SYSTEMIMAGE_PARTITION_SIZE := 941621248
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2630614016
@@ -63,42 +60,11 @@ BOARD_SUPPRESS_EMMC_WIPE := true
 BOARD_UMS_LUNFILE := "/sys/class/android_usb/android0/f_mass_storage/lun/file"
 TARGET_USE_CUSTOM_LUN_FILE_PATH := "/sys/devices/platform/dwc_otg.0/gadget/lun0/file"
 
-# Philz
-#TARGET_COMMON_NAME := GT-S7262
-#BOOTLOADER_CMD_ARG := "download"
-#BOARD_HAS_LOW_RESOLUTION := true
-#BRIGHTNESS_SYS_FILE := "/sys/class/backlight/panel/brightness"
-#BOARD_USE_B_SLOT_PROTOCOL := true
-
-# TWRP Specific
-#RECOVERY_GRAPHICS_USE_LINELENGTH := true
-#DEVICE_RESOLUTION := 480x800
-#BOARD_HAS_NO_REAL_SDCARD := true
-#RECOVERY_SDCARD_ON_DATA := true
-#TW_INTERNAL_STORAGE_PATH := /data/media
-#TW_INTERNAL_STORAGE_MOUNT_POINT := sdcard
-#TW_EXTERNAL_STORAGE_PATH := /external_sd
-#TW_EXTERNAL_STORAGE_MOUNT_POINT := external_sd
-#TW_NO_USB_STORAGE := true
-#TW_DEFAULT_EXTERNAL_STORAGE := true
-#TW_HAS_DOWNLOAD_MODE := true
-#TW_BRIGHTNESS_PATH := "/sys/class/backlight/panel/brightness"
-#TW_MAX_BRIGHTNESS := 255
-#TW_NO_CPU_TEMP := true
-#TW_NO_REBOOT_BOOTLOADER := true
-#TW_EXCLUDE_SUPERSU := true
-
 # GPU
 USE_OPENGL_RENDERER := true
 BOARD_EGL_CFG := device/samsung/logan2g/egl/egl.cfg
-BOARD_EGL_NEEDS_FNW := true
-BOARD_EGL_WORKAROUND_BUG_10194508 := true
-BOARD_USE_MHEAP_SCREENSHOT := true
-TARGET_USES_ION := true
-HWUI_COMPILE_FOR_PERF := true
-BOARD_USES_HWCOMPOSER := true
-BOARD_USE_RGBX_8888 := true
-TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := TRUE
+BOARD_EGL_NEEDS_LEGACY_FB := true
+COMMON_GLOBAL_CFLAGS += -DSC6820I_HWC -DBOARD_EGL_NEEDS_LEGACY_FB
 
 # healthd
 BOARD_HAL_STATIC_LIBRARIES := libhealthd-logan2g
@@ -118,7 +84,6 @@ COMMON_GLOBAL_CFLAGS += -DMR0_AUDIO_BLOB
 # Bluetooth
 BOARD_HAVE_BLUETOOTH := true
 BOARD_HAVE_BLUETOOTH_BCM := true
-BOARD_BLUETOOTH_USES_HCIATTACH_PROPERTY = true
 BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/logan2g/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/logan2g/bluetooth/libbt_vndcfg.txt
 
@@ -139,11 +104,7 @@ WIFI_DRIVER_MODULE_NAME     := "dhd"
 WIFI_DRIVER_MODULE_ARG      := "firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
 WIFI_DRIVER_MODULE_AP_ARG   := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
 WIFI_BAND                   := 802_11_ABG
-
-# Wi-Fi Tethering
 BOARD_HAVE_SAMSUNG_WIFI := true
-BOARD_LEGACY_NL80211_STA_EVENTS := true
-BOARD_NO_APSME_ATTR := true
 
 # Ril
 #BOARD_RIL_CLASS := ../../../device/samsung/logan2g/ril/
@@ -161,10 +122,3 @@ MINIMAL_FONT_FOOTPRINT := true
 # Charger
 BOARD_CHARGER_ENABLE_SUSPEND := true
 BOARD_CHARGING_MODE_BOOTING_LPM := /sys/class/power_supply/battery/batt_lp_charging
-
-# SELinux
-BOARD_SEPOLICY_DIRS += \
-    device/samsung/logan2g/sepolicy
-
-BOARD_SEPOLICY_UNION += \
-       file_contexts 
