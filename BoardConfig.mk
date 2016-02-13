@@ -1,3 +1,6 @@
+# inherit from the proprietary version
+-include vendor/samsung/hl3g/BoardConfigVendor.mk
+
 # Assert
 TARGET_OTA_ASSERT_DEVICE := logan2g
 
@@ -10,7 +13,7 @@ TARGET_CPU_ABI2 := armeabi
 TARGET_CPU_VARIANT := cortex-a5
 ARCH_ARM_HAVE_ARMV7A := true
 ARCH_ARM_HAVE_TLS_REGISTER := true
-BOARD_VENDOR := samsung
+#sBOARD_VENDOR := samsung
 
 # For low memory targets only (~512MB RAM & hdpi resolution)
 TARGET_ARCH_LOWMEM := true
@@ -107,7 +110,7 @@ WIFI_BAND                   := 802_11_ABG
 BOARD_HAVE_SAMSUNG_WIFI := true
 
 # Ril
-#BOARD_RIL_CLASS := ../../../device/samsung/logan2g/ril/
+BOARD_RIL_CLASS := ../../../device/samsung/logan2g/ril/
 BOARD_MOBILEDATA_INTERFACE_NAME := "rmnet0"
 
 # Bootanimation

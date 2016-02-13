@@ -24,7 +24,7 @@ $(call inherit-product-if-exists, vendor/samsung/logan2g/logan2g-vendor.mk)
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 # Overlay
-#DEVICE_PACKAGE_OVERLAYS += device/samsung/logan2g/overlay
+DEVICE_PACKAGE_OVERLAYS += device/samsung/logan2g/overlay
 
 PRODUCT_LOCALES += hdpi
 PRODUCT_AAPT_CONFIG := normal hdpi
@@ -51,9 +51,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/bin/poweroff_alarm:root/bin/poweroff_alarm \
     $(LOCAL_PATH)/rootdir/bin/rawdatad:root/bin/rawdatad 
 
-# Memtrack
-PRODUCT_PACKAGES += \
-    memtrack.sc6820i 
+# Vold
+PRODUCT_COPY_FILES += \
+    $(LOCAL_PATH)/vold.fstab:system/etc/vold.fstab
 
 # Idc
 PRODUCT_COPY_FILES += \
@@ -107,11 +107,14 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     Gallery2
 
-# Wifi
+# Wi-Fi
 PRODUCT_PACKAGES += \
-    wpa_supplicant \
+    macloader \
     dhcpcd.conf \
-    libnetcmdiface
+    hostapd \
+    libnetcmdiface \
+    wpa_supplicant \
+    wpa_supplicant.conf
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -140,6 +143,13 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
+# SPRD-SCI default build.prop properties overrides
+PRODUCT_PROPERTY_OVERRIDES := \
+    keyguard.no_require_sim=true \
+    ro.com.android.dataroaming=false \
+    persist.msms.phone_count=2 \
+    persist.sys.sprd.modemreset=1
+
 # Google-specific location properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
@@ -153,7 +163,7 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapstartsize=5m \
     dalvik.vm.heapgrowthlimit=96m \
     dalvik.vm.heapsize=128m \
-    ro.telephony.ril_class=SamsungBCMRIL \
+    ro.telephony.ril_class=SamsungSPRDRIL \
     wifi.interface=wlan0 \
     mobiledata.interfaces=rmnet0 \
     ro.zygote.disable_gl_preload=true \
