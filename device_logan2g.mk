@@ -24,7 +24,7 @@ $(call inherit-product-if-exists, vendor/samsung/logan2g/logan2g-vendor.mk)
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 # Overlay
-#DEVICE_PACKAGE_OVERLAYS += device/samsung/logan2g/overlay
+DEVICE_PACKAGE_OVERLAYS += device/samsung/logan2g/overlay
 
 PRODUCT_LOCALES += hdpi
 PRODUCT_AAPT_CONFIG := normal hdpi
@@ -51,9 +51,9 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/bin/poweroff_alarm:root/bin/poweroff_alarm \
     $(LOCAL_PATH)/rootdir/bin/rawdatad:root/bin/rawdatad 
 
-# Memtrack
+# GPU
 PRODUCT_PACKAGES += \
-    memtrack.sc6820i 
+    libGLES_android
 
 # Idc
 PRODUCT_COPY_FILES += \
@@ -85,7 +85,6 @@ PRODUCT_COPY_FILES += \
 # These are the hardware-specific files
 PRODUCT_COPY_FILES += \
     frameworks/native/data/etc/android.hardware.bluetooth.xml:system/etc/permissions/android.hardware.bluetooth.xml \
-		frameworks/native/data/etc/android.hardware.bluetooth_le.xml:system/etc/permissions/android.hardware.bluetooth_le.xml \
     frameworks/native/data/etc/android.hardware.camera.xml:system/etc/permissions/android.hardware.camera.xml \
     frameworks/native/data/etc/android.hardware.sensor.accelerometer.xml:system/etc/permissions/android.hardware.sensor.accelerometer.xml \
     frameworks/native/data/etc/android.hardware.telephony.gsm.xml:system/etc/permissions/android.hardware.telephony.gsm.xml \
@@ -160,7 +159,6 @@ PRODUCT_PROPERTY_OVERRIDES += \
     dalvik.vm.heapstartsize=5m \
     dalvik.vm.heapgrowthlimit=96m \
     dalvik.vm.heapsize=128m \
-    ro.telephony.ril_class=SamsungBCMRIL \
     wifi.interface=wlan0 \
     mobiledata.interfaces=rmnet0 \
     ro.zygote.disable_gl_preload=true \
@@ -169,6 +167,3 @@ PRODUCT_PROPERTY_OVERRIDES += \
     ro.telephony.call_ring=0 \
     ro.crypto.state=unsupported \
     ro.com.google.gmsversion=4.1_r6 \
-
-# we dont have enough storage space #bitch to hold precise GC data
-#PRODUCT_TAGS += dalvik.gc.type-precise
