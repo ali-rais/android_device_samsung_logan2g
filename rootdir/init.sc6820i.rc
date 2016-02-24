@@ -274,18 +274,18 @@ service charge /bin/charge
     oneshot
 #AND3_SPRD
 #rild service
-service ril-daemon /system/bin/rild_sp  -l /system/lib/libreference-ril.so -- -n 0
-    class main
-    socket rild stream 660 root radio
-    socket rild-debug stream 660 radio system
-    user root
-    group radio cache inet misc audio sdcard_rw log sdcard_r
-service ril-daemon2 /system/bin/rild_sp  -l /system/lib/libreference-ril.so -- -n 1
-    class main
-    socket rild1 stream 660 root radio
-    socket rild-debug1 stream 660 radio system
-    user root
-    group radio cache inet misc audio sdcard_rw log sdcard_r
+#service ril-daemon /system/bin/rild_sp  -l /system/lib/libreference-ril.so -- -n 0
+#    class main
+#    socket rild stream 660 root radio
+#    socket rild-debug stream 660 radio system
+#    user root
+#    group radio cache inet misc audio sdcard_rw log sdcard_r
+#service ril-daemon2 /system/bin/rild_sp  -l /system/lib/libreference-ril.so -- -n 1
+#    class main
+#    socket rild1 stream 660 root radio
+#    socket rild-debug1 stream 660 radio system
+#    user root
+#    group radio cache inet misc audio sdcard_rw log sdcard_r
 #service ril-daemon /system/bin/rild
 #    #class main
 #    class core
@@ -313,10 +313,10 @@ service sdcard /system/bin/sdcard /data/media /storage/sdcard0 1023 1023
 service akmd /system/bin/akmd8975 -m 3
     class main
     oneshot
-service slog /system/bin/slog
-    class main
-    user system
-    group system shell radio log
+#service slog /system/bin/slog
+#    class main
+#    user system
+#    group system shell radio log
 #service mfserial /system/bin/mfserial ts0710mux9 ttyS1 1
 #    class main
 #    user root
