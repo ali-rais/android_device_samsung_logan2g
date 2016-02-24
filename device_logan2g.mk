@@ -50,6 +50,10 @@ PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/rootdir/bin/poweroff_alarm:root/bin/poweroff_alarm \
     $(LOCAL_PATH)/rootdir/bin/rawdatad:root/bin/rawdatad 
 
+# Memtrack
+PRODUCT_PACKAGES += \
+    memtrack.sc6820i
+
 # Idc
 PRODUCT_COPY_FILES += \
     $(LOCAL_PATH)/idc/Zinitix_tsp.idc:system/usr/idc/Zinitix_tsp.idc
