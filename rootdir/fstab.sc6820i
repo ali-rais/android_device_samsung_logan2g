@@ -9,5 +9,4 @@
 /dev/block/mmcblk0p3          /efs     ext4    noatime,nosuid,nodev,discard,journal_async_commit,errors=panic  wait,check
 
 # vold-managed volumes ("block device" is actually a sysfs devpath)
-/devices/platform/sdhci.0/mmc_host/mmc2*       auto  			auto     defaults                                                    voldmanaged=sdcard1:auto,noemulatedsd
-/devices/platform/sdhci.0/mmc_host/mmc2*       auto  			auto     defaults                                                    voldmanaged=sdcard2:auto,noemulatedsd
+/devices/platform/sprd-sdhci.0/mmc_host/mmc1       auto  			auto     defaults                                                    voldmanaged=sdcard1:auto,noemulatedsd

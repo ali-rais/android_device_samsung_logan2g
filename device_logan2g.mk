@@ -24,7 +24,7 @@ $(call inherit-product-if-exists, vendor/samsung/logan2g/logan2g-vendor.mk)
 $(call inherit-product, frameworks/native/build/phone-hdpi-512-dalvik-heap.mk)
 
 # Overlay
-#DEVICE_PACKAGE_OVERLAYS += device/samsung/logan2g/overlay
+DEVICE_PACKAGE_OVERLAYS += device/samsung/logan2g/overlay
 
 PRODUCT_LOCALES += hdpi
 PRODUCT_AAPT_CONFIG := normal hdpi

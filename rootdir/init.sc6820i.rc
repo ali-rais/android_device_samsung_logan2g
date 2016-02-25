@@ -1,81 +1,75 @@
 import init.sc6820i.usb.rc
 import init.bt.rc
-on early-init
-    mkdir /efs 0771 radio system
 
 on init
-# See storage config details at http://source.android.com/tech/storage/
-	mkdir /mnt/shell/emulated 0700 shell shell
-    mkdir /storage/emulated 0555 root root
-	export EXTERNAL_STORAGE /storage/emulated/legacy
-	export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
-    export EMULATED_STORAGE_TARGET /storage/emulated
+
+	stop ril-daemon
+	
+	# See storage config details at http://source.android.com/tech/storage/
+    		mkdir /mnt/shell/emulated 0700 shell shell
+   		mkdir /storage/emulated 0555 root root
+    		export EXTERNAL_STORAGE /storage/emulated/legacy
+    		export EMULATED_STORAGE_SOURCE /mnt/shell/emulated
+    		export EMULATED_STORAGE_TARGET /storage/emulated
 	# Support legacy paths
-    symlink /storage/emulated/legacy /sdcard
-    symlink /storage/emulated/legacy /mnt/sdcard
-	symlink /storage/emulated/legacy /storage/sdcard0
-	symlink /mnt/shell/emulated/0 /storage/emulated/legacy
+    		symlink /storage/emulated/legacy /sdcard
+   		symlink /storage/emulated/legacy /mnt/sdcard
+		symlink /storage/emulated/legacy /storage/sdcard0
+		symlink /mnt/shell/emulated/0 /storage/emulated/legacy
 
-	mkdir /storage/sdcard1 0775 system system
-	export SECONDARY_STORAGE /storage/sdcard1
-	mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
-	mkdir /storage/sdcard1 0700 root root
-	
-	#mkdir /storage/usbdisk 0775 system system
-	#export SECONDARY_STORAGE /storage/usbdisk0
-	#mkdir /mnt/media_rw/usbdisk0 0700 media_rw media_rw
-	#mkdir /storage/usbdisk0 0700 root root
-	
-	# for backwards compatibility
-    #symlink /storage/sdcard1 /external_sd
-    #symlink /storage/sdcard1 /mnt/external_sd
-    #symlink /storage/usbdisk /usbdisk
-    #symlink /storage/usbdisk /mnt/usbdisk
+		mkdir /storage/sdcard1 0775 system system
+		export SECONDARY_STORAGE /storage/sdcard1
+		mkdir /mnt/media_rw/sdcard1 0700 media_rw media_rw
+		mkdir /storage/sdcard1 0700 root root
 
-# To store widevine keybox
-    symlink /data/app /factory
-	symlink /efs /factory
-	symlink /dev/block/mmcblk0p11 /dev/block/param
+   
+    mkdir /efs 0775 radio system
+    symlink /efs /factory
+    symlink /dev/block/mmcblk0p11 /dev/block/param
+
 on fs
+    mkdir /productinfo 0774 system system
     mount_all /fstab.sc6820i
     setprop ro.crypto.fuse_sdcard true
 on post-fs
     insmod /system/lib/modules/ump.ko
     insmod /system/lib/modules/mali.ko
-    # For SysScope
-    symlink /dev/block/mmcblk0p4 /dev/block/param
+
     # ko files for exfat
     insmod /system/lib/modules/exfat_core.ko
     insmod /system/lib/modules/exfat_fs.ko
     
 on post-fs-data
     # we will remap this as /storage/sdcard0 with the sdcard fuse tool
-    mkdir /data/media 0775 media_rw media_rw
+    mkdir /data/media 0770 media_rw media_rw
     chown media_rw media_rw /data/media
     mkdir /data/misc/sensors 0775 system system
-    # give system access to wpa_supplicant.conf for backup and restore
-    mkdir /data/misc/wifi 0770 wifi system
+
+    # Set indication (checked by vold) that we have finished this action
+    setprop vold.post_fs_data_done 1
+
+    # Wifi
+    mkdir /data/misc/wifi 0775 wifi system
     mkdir /efs/wifi 0775 radio system
     mkdir /efs/bluetooth 0775 radio system
     mkdir /efs/sensor 0775 radio system
     mkdir /efs/imei 0775 radio system
-    mkdir /efs/audio 0775 system system
     chmod 0660 /data/misc/wifi/wpa_supplicant.conf
     mkdir /data/misc/wifi/sockets 0770 wifi wifi
     mkdir /data/misc/dhcp 0775 dhcp dhcp
+    mkdir /data/misc/vpn/profiles 0770 system system
     chown dhcp dhcp /data/misc/dhcp
     chown system system /efs/wifi/.mac.info
     chmod 0664 /efs/wifi/.mac.info
     mkdir /data/misc/radio 0775 radio system
+    mkdir /data/anr 0775 system system
+    mkdir /system/etc/wifi 0775 wifi wifi
+
     # for TRP/TIS
     write /data/.psm.info 1
     chown system root /data/.psm.info
     chmod 0660 /data/.psm.info
 
-    # Set indication (checked by vold) that we have finished this action
-    setprop vold.post_fs_data_done 1
-#    mkswap /data/swapfile
-#    swapon /data/swapfile
 # MTP permission
 	chmod 0660 /dev/usb_mtp_gadget
 	chown system system /dev/usb_mtp_gadget
@@ -93,15 +87,17 @@ on post-fs-data
     chmod 0664 /sys/class/sec_key/sec_key_pressed/key_short
     chown system system /sys/class/sec_key/sec_powerkey_pressed/key_short
     chmod 0664 /sys/class/sec_key/sec_powerkey_pressed/key_short
-on init
-    mkdir /dev/pipe 0755 system system
-    pipe 666 /dev/pipe/mmi.audio.ctrl
+
 on boot
     write /sys/fs/selinux/enforce 0
     chown system system /sys/class/backlight/panel/max_brightness
     chmod 0660 /sys/class/backlight/panel/max_brightness
     chown system system /sys/class/backlight/panel/brightness
     chmod 0660 /sys/class/backlight/panel/brightness
+
+    # TelephonyManager.java requires this
+    chmod 0644 /proc/cmdline
+
 #AND3_SPRD
 # SEC_PRODUCT_FEATURE_COMMON_USE_MULTISIM
 #   simslot 1
@@ -127,6 +123,15 @@ on boot
     chown system radio /sys/class/sensors/accelerometer_sensor/vendor
     chown system radio /sys/class/sensors/accelerometer_sensor/name
 #permissions for bluetooth
+chown bluetooth net_bt_stack  /dev/ttyS0
+    chmod 0600 /dev/ttyS0
+    chmod 0660 /proc/bluetooth/sleep/proto
+    chmod 0660 /sys/class/rfkill/rfkill0/state
+    chmod 0660 /sys/class/rfkill/rfkill0/type
+    chown bluetooth net_bt_stack  ro.bt.bdaddr_path
+    chown bluetooth net_bt_stack  /sys/class/rfkill/rfkill0/state
+    chown bluetooth net_bt_stack  /sys/class/rfkill/rfkill0/type
+    chown bluetooth system /proc/bluetooth/sleep/proto
     setprop ro.bt.bdaddr_path "/efs/bluetooth/bt_addr"
     chown bluetooth bluetooth ro.bt.bdaddr_path
 # Root Permission
@@ -183,41 +188,33 @@ service sprd_monitor /system/bin/sprd_monitor
     group system radio shell
     oneshot
 service modemd /system/bin/modemd
-    #class main
-    class core
-    socket modem stream 660 system system
+    class main
     user system
     group system radio
     oneshot
-#service engpcclient /system/bin/engpcclient
-#    #class main
-#    class core
-#    user system
-#    group system radio
-#    disabled
-#    oneshot
-#service engservice /system/bin/engservice
-#    #class main
-#    class core
-#    user system
-#    group system
-#    disabled
-#    oneshot
-#service engmodemclient /system/bin/engmodemclient
-#    #class main
-#    class core
-#    user system
-#    group system radio
-#    disabled
-#    oneshot
-#	-iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf -N \
-service p2p_supplicant /system/bin/p2p_supplicant \
-	-ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf -e/data/misc/wifi/entropy.bin -puse_p2p_group_interface=1
+service engpcclient /system/bin/engpcclient
     class main
-	disabled
-	oneshot
-service wpa_supplicant /system/bin/wpa_supplicant \
-    -Dnl80211 -iwlan0 -e/data/misc/wifi/entropy.bin -c/data/misc/wifi/wpa_supplicant.conf
+    user system
+    group system radio
+    disabled
+    oneshot
+service engservice /system/bin/engservice
+    class main
+    user system
+    group system
+    disabled
+    oneshot
+service engmodemclient /system/bin/engmodemclient
+    class main
+    user system
+    group system radio
+    disabled
+    oneshot
+service wpa_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
+    -I/system/etc/wifi/wpa_supplicant_overlay.conf \
+    -e/data/misc/wifi/entropy.bin \
+    -O/data/misc/wifi/sockets -g@android:wpa_wlan0
     #   we will start as root and wpa_supplicant will switch to user wifi
     #   after setting up the capabilities required for WEXT
     #   user wifi
@@ -226,6 +223,23 @@ service wpa_supplicant /system/bin/wpa_supplicant \
     socket wpa_wlan0 dgram 660 wifi wifi
     disabled
     oneshot
+
+service p2p_supplicant /system/bin/logwrapper /system/bin/wpa_supplicant \
+    -iwlan0 -Dnl80211 -c/data/misc/wifi/wpa_supplicant.conf \
+    -I/system/etc/wifi/wpa_supplicant_overlay.conf -N \
+    -ip2p0 -Dnl80211 -c/data/misc/wifi/p2p_supplicant.conf \
+    -I/system/etc/wifi/p2p_supplicant_overlay.conf \
+    -e/data/misc/wifi/entropy.bin -puse_p2p_group_interface=1 \
+    -O/data/misc/wifi/sockets -g@android:wpa_wlan0
+#   we will start as root and wpa_supplicant will switch to user wifi
+#   after setting up the capabilities required for WEXT
+#   user wifi
+#   group wifi inet keystore
+    class main
+    socket wpa_wlan0 dgram 660 wifi wifi
+    disabled
+    oneshot
+
 service dhcpcd_wlan0 /system/bin/dhcpcd -ABKL
     class main
     disabled
@@ -274,18 +288,18 @@ service charge /bin/charge
     oneshot
 #AND3_SPRD
 #rild service
-#service ril-daemon /system/bin/rild_sp  -l /system/lib/libreference-ril.so -- -n 0
-#    class main
-#    socket rild stream 660 root radio
-#    socket rild-debug stream 660 radio system
-#    user root
-#    group radio cache inet misc audio sdcard_rw log sdcard_r
-#service ril-daemon2 /system/bin/rild_sp  -l /system/lib/libreference-ril.so -- -n 1
-#    class main
-#    socket rild1 stream 660 root radio
-#    socket rild-debug1 stream 660 radio system
-#    user root
-#    group radio cache inet misc audio sdcard_rw log sdcard_r
+service ril-daemon /system/bin/rild_sp  -l /system/lib/libreference-ril.so -- -n 0
+    class main
+    socket rild stream 660 root radio
+    socket rild-debug stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw log sdcard_r
+service ril-daemon2 /system/bin/rild_sp  -l /system/lib/libreference-ril.so -- -n 1
+    class main
+    socket rild1 stream 660 root radio
+    socket rild-debug1 stream 660 radio system
+    user root
+    group radio cache inet misc audio sdcard_rw log sdcard_r
 #service ril-daemon /system/bin/rild
 #    #class main
 #    class core
