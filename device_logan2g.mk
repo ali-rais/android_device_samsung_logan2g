@@ -101,8 +101,6 @@ PRODUCT_COPY_FILES += \
 # Filesystem
 PRODUCT_PACKAGES += \
     setup_fs \
-    make_ext4fs \
-    e2fsck 
 
 # Camera
 PRODUCT_PACKAGES += \
@@ -112,7 +110,11 @@ PRODUCT_PACKAGES += \
 PRODUCT_PACKAGES += \
     wpa_supplicant \
     dhcpcd.conf \
-    libnetcmdiface
+    hostapd \
+    wpa_supplicant.conf
+
+PRODUCT_PROPERTY_OVERRIDES += \
+    wifi.supplicant_scan_interval=180
 
 # Audio
 PRODUCT_PACKAGES += \
@@ -141,14 +143,16 @@ PRODUCT_PROPERTY_OVERRIDES += \
 PRODUCT_DEFAULT_PROPERTY_OVERRIDES += \
     persist.sys.usb.config=mtp
 
-# KSM
-PRODUCT_PROPERTY_OVERRIDES += \
-    ro.ksm.default=1
-
 # Google-specific location properties
 PRODUCT_PROPERTY_OVERRIDES += \
     ro.com.google.locationfeatures=1 \
     ro.com.google.networklocation=1
+
+# Device props
+PRODUCT_PROPERTY_OVERRIDES := \
+	keyguard.no_require_sim=true \
+	ro.com.android.dataroaming=false \
+	persist.sys.sprd.modemreset=0
 
 # The extended JNI checks will cause the system to run more slowly, but they can spot a variety of nasty bugs before they
 # have a chance to cause problems.

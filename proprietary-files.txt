@@ -48,6 +48,7 @@ bin/slogctl
 bin/ext_chown.sh
 bin/dbus-daemon
 bin/phoneserver
+bin/phoneserver_2sim
 bin/engservice
 bin/engmodemclient
 bin/engpcclient
@@ -75,6 +76,8 @@ lib/libnvaccessor.so
 # cameradata
 cameradata/datapattern_420sp.yuv
 cameradata/datapattern_front_420sp.yuv
+lib/libseccamera_jni.so
+lib/libseccameracore.so
 
 # bluetooth
 etc/bluetooth/main.conf
