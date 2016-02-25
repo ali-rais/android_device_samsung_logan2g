@@ -24,3 +24,6 @@
 ## Device Picture 
 
 ![Sasmung Galaxy Star Pro|Plus] (http://images.fonearena.com/blog/wp-content/uploads/2013/12/samsung-galaxy-star-pro-unboxing-7.jpg "Sasmung Galaxy Star Pro|Plus")
+
+## Credit for base tree (cm-10.1)
+ItsAnilSingh
