@@ -42,10 +42,8 @@ BOARD_SYSTEMIMAGE_PARTITION_SIZE := 941621248
 BOARD_USERDATAIMAGE_PARTITION_SIZE := 2630614016
 BOARD_FLASH_BLOCK_SIZE := 131072
 BOARD_CACHEIMAGE_FILE_SYSTEM_TYPE := ext4
-
 TARGET_USERIMAGES_USE_EXT4 := true
 BOARD_HAS_LARGE_FILESYSTEM := true
-BOARD_VENDOR_USE_AKMD := true
 
 # Recovery
 TARGET_RECOVERY_PIXEL_FORMAT := "RGBX_8888"
@@ -93,8 +91,9 @@ HWUI_COMPILE_FOR_PERF := true
 TARGET_RUNNING_WITHOUT_SYNC_FRAMEWORK := true
 
 # Ril
-BOARD_RIL_NO_CELLINFOLIST := true
 BOARD_MOBILEDATA_INTERFACE_NAME := "rmnet0"
+BOARD_RIL_CLASS := ../../../device/samsung/logan2g/ril
+COMMON_GLOBAL_CFLAGS += -DSEC_PRODUCT_FEATURE_RIL_CALL_DUALMODE_CDMAGSM
 
 # healthd
 BOARD_HAL_STATIC_LIBRARIES := libhealthd-logan2g
@@ -106,7 +105,6 @@ BOARD_HARDWARE_CLASS := hardware/samsung/cmhw/ device/samsung/logan2g/cmhw/
 USE_CAMERA_STUB := true 
 
 # Audio
-BOARD_USES_GENERIC_AUDIO := true
 BOARD_USES_TINYALSA_AUDIO := true
 
 # Bluetooth
@@ -116,23 +114,24 @@ BOARD_BLUETOOTH_BDROID_BUILDCFG_INCLUDE_DIR := device/samsung/logan2g/bluetooth
 BOARD_BLUEDROID_VENDOR_CONF := device/samsung/logan2g/bluetooth/libbt_vndcfg.txt
 
 # Connectivity - Wi-Fi
-BOARD_HAVE_SAMSUNG_WIFI     := true
-WPA_BUILD_SUPPLICANT 		:= true
-BOARD_WPA_SUPPLICANT_DRIVER := NL80211
-WPA_SUPPLICANT_VERSION      := VER_0_8_X
-BOARD_WPA_SUPPLICANT_PRIVATE_LIB := lib_driver_cmd_bcmdhd
-BOARD_HOSTAPD_DRIVER        := NL80211
-BOARD_HOSTAPD_PRIVATE_LIB   := lib_driver_cmd_bcmdhd
-BOARD_WLAN_DEVICE           := bcmdhd
-BOARD_WLAN_DEVICE_REV       := bcm4330_b1
-WIFI_DRIVER_FW_PATH_PARAM   := "/sys/module/dhd/parameters/firmware_path"
-WIFI_DRIVER_FW_PATH_STA     := "/system/etc/wifi/bcmdhd_sta.bin"
-WIFI_DRIVER_FW_PATH_AP      := "/system/etc/wifi/bcmdhd_apsta.bin"
-WIFI_DRIVER_MODULE_PATH     := "/system/lib/modules/dhd.ko"
-WIFI_DRIVER_MODULE_NAME     := "dhd"
-WIFI_DRIVER_MODULE_ARG      := "firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
-WIFI_DRIVER_MODULE_AP_ARG   := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
-WIFI_BAND                   := 802_11_ABG
+BOARD_HAVE_SAMSUNG_WIFI                     := true
+BOARD_WLAN_DEVICE                           := bcmdhd
+BOARD_WLAN_DEVICE_REV                       := bcm4330_b2
+WPA_BUILD_SUPPLICANT                        := true
+BOARD_WPA_SUPPLICANT_DRIVER                 := NL80211
+WPA_SUPPLICANT_VERSION                      := VER_0_8_X
+BOARD_WPA_SUPPLICANT_PRIVATE_LIB            := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+BOARD_HOSTAPD_DRIVER                        := NL80211
+BOARD_HOSTAPD_PRIVATE_LIB                   := lib_driver_cmd_$(BOARD_WLAN_DEVICE)
+WIFI_DRIVER_FW_PATH_PARAM                   := "/sys/module/dhd/parameters/firmware_path"
+WIFI_DRIVER_FW_PATH_STA                     := "/system/etc/wifi/bcmdhd_sta.bin"
+WIFI_DRIVER_FW_PATH_AP                      := "/system/etc/wifi/bcmdhd_apsta.bin"
+WIFI_DRIVER_FW_PATH_P2P                     := "/system/etc/wifi/bcmdhd_p2p.bin"
+WIFI_DRIVER_MODULE_PATH                     := "/system/lib/modules/dhd.ko"
+WIFI_DRIVER_MODULE_NAME                     := "dhd"
+WIFI_DRIVER_MODULE_ARG                      := "firmware_path=/system/etc/wifi/bcmdhd_sta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+WIFI_DRIVER_MODULE_AP_ARG                   := "firmware_path=/system/etc/wifi/bcmdhd_apsta.bin nvram_path=/system/etc/wifi/nvram_net.txt"
+WIFI_BAND                                   := 802_11_ABG
 
 # Bootanimation
 TARGET_SCREEN_WIDTH := 480
