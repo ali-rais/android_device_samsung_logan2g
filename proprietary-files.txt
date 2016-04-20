@@ -185,7 +185,7 @@ lib/libvcdecoder_jni.so
 lib/libwvdrm_L3.so
 lib/libreference-ril.so
 lib/libsamsungpowersound.so
-lib/libbinder.so
+#lib/libbinder.so
 
 #Drm
 lib/libwvm.so
