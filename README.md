@@ -2,7 +2,7 @@
 * PM me at xda - FireLord 
 * Email me - amankumarmicro@gmail.com
 
-# Device configuration for Sasmung Galaxy Star Pro|Plus (logan2g)
+# Device configuration for Samsung Galaxy Star Pro|Plus (logan2g)
 
 ## Spec Sheet
 
@@ -24,6 +24,3 @@
 ## Device Picture 
 
 ![Sasmung Galaxy Star Pro|Plus] (http://images.fonearena.com/blog/wp-content/uploads/2013/12/samsung-galaxy-star-pro-unboxing-7.jpg "Sasmung Galaxy Star Pro|Plus")
-
-## Credit for base tree (cm-10.1)
-ItsAnilSingh
