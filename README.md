@@ -19,6 +19,7 @@
 | Dimensions              | 121.2 x 62.7 x 10.6 mm |
 | Display                 | 480 x 800 pixels       |
 | Camera                  | 2 MP                   |
+| Codename                | logan2g
 | Release Date            | October 2013           |
 
 ## Device Picture 
