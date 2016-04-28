@@ -1,3 +1,5 @@
+#This BoardConfig.mk is for LuneOS
+
 # Assert
 TARGET_OTA_ASSERT_DEVICE := logan2g
 
