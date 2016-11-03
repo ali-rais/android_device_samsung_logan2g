@@ -21,6 +21,6 @@ include $(CLEAR_VARS)
 LOCAL_MODULE_PATH := $(TARGET_OUT_SHARED_LIBRARIES)/hw
 LOCAL_C_INCLUDES += hardware/libhardware/include
 LOCAL_SHARED_LIBRARIES := liblog
-LOCAL_SRC_FILES := memtrack_exynos5.c mali.c
+LOCAL_SRC_FILES := memtrack_sprd.c sprd_mem_check.c
 LOCAL_MODULE := memtrack.sc6820i
 include $(BUILD_SHARED_LIBRARY)

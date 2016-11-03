@@ -2,7 +2,7 @@
 * PM me at xda - FireLord 
 * Email me - amankumarmicro@gmail.com
 
-# Device configuration for Sasmung Galaxy Star Pro|Plus (logan2g)
+# Device configuration for Samsung Galaxy Star Pro|Plus (logan2g)
 
 ## Spec Sheet
 
@@ -19,6 +19,7 @@
 | Dimensions              | 121.2 x 62.7 x 10.6 mm |
 | Display                 | 480 x 800 pixels       |
 | Camera                  | 2 MP                   |
+| Codename                | logan2g
 | Release Date            | October 2013           |
 
 ## Device Picture 

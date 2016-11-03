@@ -15,16 +15,15 @@ bin/wlandutservice
 bin/calibration_init
 bin/sprd_monitor
 bin/cpu
+bin/hostapd
 
 # Some Fucking packages
 lib/libmorpho_easy_hdr.so
 lib/libmorpho_facesolid.so
 lib/libvolumemanager.so
 lib/libxlist.so
-lib/libcontrolcsc.so
+#lib/libcontrolcsc.so
 lib/libengclient.so
-lib/libvbeffect.so
-lib/libvbpga.so
 lib/libaudio-ril.so
 lib/liblvvewrapper.so
 lib/libLifevibes_lvvefs.so
@@ -32,11 +31,6 @@ lib/libMali.so
 lib/libUMP.so
 lib/libDisplaySyncModule.so
 lib/libopencore_common.so
-lib/libstagefrighthw.so
-lib/libstagefright_soft_h264dec_sprd.so
-lib/libstagefright_soft_mpeg4dec_sprd.so
-lib/libaudiopolicy_sec.so
-
 
 # Adding as kmsg through error :P
 bin/nvm_daemon
@@ -48,6 +42,7 @@ bin/slogctl
 bin/ext_chown.sh
 bin/dbus-daemon
 bin/phoneserver
+bin/phoneserver_2sim
 bin/engservice
 bin/engmodemclient
 bin/engpcclient
@@ -75,6 +70,8 @@ lib/libnvaccessor.so
 # cameradata
 cameradata/datapattern_420sp.yuv
 cameradata/datapattern_front_420sp.yuv
+lib/libseccamera_jni.so
+lib/libseccameracore.so
 
 # bluetooth
 etc/bluetooth/main.conf
@@ -160,8 +157,7 @@ etc/audio_VR/Tx_ControlParams_VR_WIRED_HEADPHONE_WIDEBAND.txt
 etc/audio_VR/Tx_ControlParams_VR_WIRED_HEADSET_WIDEBAND.txt
 
 # hw
-lib/hw/audio_policy.sc6820i.so
-lib/hw/audio.primary.sc6820i.so
+lib/hw/lights.sc6820i.so
 lib/hw/camera.sc6820i.so
 lib/hw/gralloc.sc6820i.so
 lib/hw/hwcomposer.sc6820i.so
@@ -171,25 +167,30 @@ lib/hw/sensors.sc6820i.so
 lib/libisp.so
 lib/libQmageDecoder.so
 lib/libWVStreamControlAPI_L3.so
-lib/lib_SamsungRec_V01006.so
-lib/lib_Samsung_Resampler.so
-lib/lib_Samsung_SB_AM_for_ICS_v03008.so
+#lib/lib_SamsungRec_V01006.so
+#lib/lib_Samsung_Resampler.so
+#lib/lib_Samsung_SB_AM_for_ICS_v03008.so
 lib/libatparser.so
-lib/libfactoryutil.so
+#lib/libfactoryutil.so
 lib/libjpega.so
 lib/libkeystore_client.so
 lib/libomission_avoidance.so
 lib/libril.so
-lib/libsamsungRecord.so
-lib/libsamsungSoundbooster.so
+#lib/libsamsungRecord.so
+#lib/libsamsungSoundbooster.so
 lib/libsecnativefeature.so
-lib/libsecril-client.so
+#lib/libsecril-client.so
 lib/libsoundspeed.so
-lib/libstagefrighthw.so
 lib/libvcdecoder_jni.so
 lib/libwvdrm_L3.so
-lib/libwvm.so
 lib/libreference-ril.so
+lib/libsamsungpowersound.so
+#lib/libbinder.so
+
+#Drm
+lib/libwvm.so
+lib/drm/libdrmwvmplugin.so
+lib/drm/libomaplugin.so
 
 # firmware
 vendor/firmware/fw_bcmdhd_apsta.bin

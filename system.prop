@@ -10,13 +10,20 @@ ro.lcd_brightness=160
 
 debug.hwui.render_dirty_regions=false
 
+# delay for ConnectivityChange broadcast (ms)
+conn.connectivity_change_delay = 0
+
+# NK console device
+persist.ttydev=ttyVUART0
+
 # MultiTouch support
 ro.product.multi_touch_enabled=true
 ro.product.max_num_touch=2
 
-net.streaming.rtsp.uaprof=http://wap.samsungmobile.com/uaprof/GT-S7262.xml
-
+# RIL
+ril.sim2.present=1
 ro.ril.hsxpa=1
+persist.msms.phone_count=2
 
 ro.secure=0
 ro.adb.secure=0

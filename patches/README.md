@@ -1,1 +1,4 @@
-# Cyanogenmod 11 patch for GT-S7262 (logan2g), by  corphish
+## Patches 
+
+* koquantam for audio
+* FireLord with root-expert for shutdown workaround
